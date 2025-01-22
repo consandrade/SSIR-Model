@@ -21,11 +21,11 @@ color_R = 'green'
 # Run the simulation N times
 for n in range(N):
     # Initialize population values
-    S = [999]  # Initial susceptible population
-    I = [1]    # Initial infected individuals
-    R = [0]    # Initial recovered individuals
-    t = [0]    # Time starts at 0
-    t_end = 200  # t in days
+    S = [999]
+    I = [1] 
+    R = [0]  
+    t = [0] 
+    t_end = 200 
 
     while t[-1] < t_end and S[-1] + I[-1] + R[-1] > 0:  # Ensure populations don't go negative
         N_pop = S[-1] + I[-1] + R[-1]
@@ -35,7 +35,7 @@ for n in range(N):
             break
 
         # Adjust transmission rate based on current susceptible population
-        effective_beta = scaled_beta * S[-1] / N_pop  # Adjust transmission rate with current susceptible population
+        effective_beta = scaled_beta * S[-1] / N_pop
 
         # Propensities
         Propensity_I = effective_beta * S[-1] * I[-1]
@@ -48,7 +48,6 @@ for n in range(N):
         Propensities = [Propensity_I, Propensity_R]
         Propensity_Sum = Propensities[0] + Propensities[1]
 
-        # Smaller time steps
         time_step = np.random.exponential(scale=1/Propensity_Sum)
         rand_num = random.uniform(0, 1)
 
@@ -59,19 +58,17 @@ for n in range(N):
             S.append(S[-1] - new_infected)
             I.append(I[-1] + new_infected)
             R.append(R[-1])
-        elif I[-1] > 0:  # Recovery happens
+        elif I[-1] > 0: 
             S.append(S[-1])
             I.append(I[-1] - 1)
             R.append(R[-1] + 1)
 
         t.append(t[-1] + time_step)
 
-    # Plot the populations for all simulations with color-coding for S, I, and R
     plt.plot(t, S, color=color_S)
     plt.plot(t, I, color=color_I)
     plt.plot(t, R, color=color_R)
 
-# Label the axes and show the plot
 plt.xlabel('Time (Days)')
 plt.ylabel('Population')
 plt.legend(['Susceptible', 'Infected', 'Recovered'], title="Population")
