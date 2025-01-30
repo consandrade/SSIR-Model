@@ -8,12 +8,15 @@ def main():
     tau_i = 6.3
     population_size = 1000
     t_end = 200
-    N = 20  # N = number of simulations
+    N = 100 # N = number of simulations
 
+    
     final_S = []
     final_I = []
     final_R = []
     final_t = []  # Array to store final times
+    
+    extinction_counter = 0.0 # Counter of Stochastic Extinction Events
 
     for n in range(N):
         simulation = SIR(R0, tau_i, population_size, t_end)
@@ -25,11 +28,20 @@ def main():
         final_R.append(R)
         final_t.append(t)
 
+        if S >= 500:
+            extinction_counter += 1
+
+    probability_of_extinction = (extinction_counter / N) * 100
+
     # Print final data for all N simulations
     print("Final data after each simulation:")
+    
     for i in range(N):
         print(f"Simulation {i+1}: S = {final_S[i]}, I = {final_I[i]}, R = {final_R[i]}, Time = {final_t[i]:.2f}")
-
+    
+    # Print the probability of stochastic extinction
+    print(f"The Extinction Probability is:  {probability_of_extinction}%")
+    
     # Create the time evolution plot
     plt.figure(figsize=(8, 6))
     for _ in range(N):
@@ -135,7 +147,6 @@ class SIR:
 
     def final_state(self):
         return self.S[-1], self.I[-1], self.R[-1], self.t[-1]
-
-
+    
 if __name__ == "__main__":
     main()
