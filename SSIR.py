@@ -8,14 +8,14 @@ def main():
     tau_i = 6.3
     population_size = 1000
     t_end = 200
-    N = 100  # N = number of simulations
+    N = 20  # N = number of simulations
 
     final_S = []
     final_I = []
     final_R = []
     final_t = []  # Array to store final times
 
-    for _ in range(N):
+    for n in range(N):
         simulation = SIR(R0, tau_i, population_size, t_end)
         simulation.SimulationLoop()
         S, I, R, t = simulation.final_state()
