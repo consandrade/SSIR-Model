@@ -1,20 +1,24 @@
 import numpy as np
 import random
+import csv
 import matplotlib.pyplot as plt
-
 
 def main():
     R0 = 1.34
     tau_i = 6.3
     population_size = 1000
     t_end = 200
-    N = 100 # N = number of simulations
+    N = 20 # N = number of simulations
 
-    
     final_S = []
     final_I = []
     final_R = []
     final_t = []  # Array to store final times
+
+    with open('data.csv', mode = 'w', newline = '') as csvfile:
+            fieldnames = ['Susceptible', 'Infected', 'Recovered', 'time']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
     
     extinction_counter = 0.0 # Counter of Stochastic Extinction Events
 
@@ -27,6 +31,10 @@ def main():
         final_I.append(I)
         final_R.append(R)
         final_t.append(t)
+   
+        with open('data.csv', mode='a', newline='') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=['Susceptible', 'Infected', 'Recovered', 'time'])
+            writer.writerow({'Susceptible': S, 'Infected': I, 'Recovered': R, 'time': t})
 
         if S >= 500:
             extinction_counter += 1
