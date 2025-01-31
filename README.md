@@ -1,7 +1,7 @@
 
 ---
 
-### **MIT License** (to be included in the LICENSE file)
+### **MIT License** 
 
 ```text
 MIT License
