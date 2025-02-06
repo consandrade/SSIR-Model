@@ -68,7 +68,7 @@ def main():
     plt.scatter(range(N), final_S, color='blue', label='Final Susceptible')
     plt.scatter(range(N), final_I, color='red', label='Final Infected')
     plt.scatter(range(N), final_R, color='green', label='Final Recovered')
-    plt.scatter(range(N), final_t, color='purple', label='Final Time', marker='x')
+    # plt.scatter(range(N), final_t, color='purple', label='Final Time', marker='x')
 
     plt.xlabel('Simulation Run')
     plt.ylabel('Population Count')
